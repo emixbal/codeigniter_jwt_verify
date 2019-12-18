@@ -15,14 +15,17 @@ class Example extends REST_Controller{
         //implement helper
         $loggedin_user = verify_token($this->input->get_request_header('Authorization'));
 
+        $config['query'] = $this->input->get('query');
+        $config['sort_type'] = $this->input->get('sort_type');
+
         // get data from token extraction
         $user_id = decode_id($loggedin_user->id);
         $organization_id = decode_id($loggedin_user->organization_id);
 
-        $total_data = $this->contract_api->listing_example($user_id, $user_id, $organization_id, $config)->total_data;
+        $total_data = $this->contract_api->listing_example($user_id, $organization_id, $config)->total_data;
         $total_page = ceil($total_data/$per_page);
         $start_page = ($page>1) ? ($page * $per_page) - $per_page : 0;
-        $result = $this->contract_api->listing_example($user_id, $user_id, $organization_id, $config, array("limit"=>$per_page,"offset"=>$start_page));
+        $result = $this->contract_api->listing_example($user_id, $organization_id, $config, array("limit"=>$per_page,"offset"=>$start_page));
 
         $response = [
             "message"=>"ok",
