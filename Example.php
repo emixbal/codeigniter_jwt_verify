@@ -13,7 +13,13 @@ class Example extends REST_Controller{
 
     function index_get(){
         //implement helper
-        $loggedin_user = verify_token($this->input->get_request_header('Authorization'));
+        $logged_in_user = verify_token($this->input->get_request_header('Authorization'));
+
+        /**
+         * jika di print_r($logged_in_user);
+         * akan keluar data user yang telah login.
+         * Tergantung data user poko yg di includekan saan encode JWT
+         */
 
         $config['query'] = $this->input->get('query');
         $config['sort_type'] = $this->input->get('sort_type');

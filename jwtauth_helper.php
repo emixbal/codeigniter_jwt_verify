@@ -14,7 +14,7 @@ if(!function_exists('verify_token')){
             if(count($exploded)>1){ //jika bearer key provided
                 $bearer = $exploded[0];
                 $token = $exploded[1];
-                if($bearer!='Bearer'){ //jika bearer key bukan JWT
+                if($bearer!='Bearer'){ //jika bearer key bukan Bearer
                     $status=401;
                     $data = array(
                         "message"=>"Wrong format bearer token.",
@@ -24,7 +24,7 @@ if(!function_exists('verify_token')){
                     echo $ctx->final_output;
                     header("content-type: application/json");
                     exit();
-                }else{  //jika bearer key adalah JWT
+                }else{  //jika bearer key adalah Bearer
                     try { //melakukan decode. Tidak melakukan apapun jika benar
                         $jwt = JWT::decode($token, $secretkey, array('HS256'));
                         return $jwt;
